@@ -8,7 +8,7 @@ router.post('/', async (req, res) => {
   try {
     const service = new Service(req.body);
     await service.save();
-    res.status(201).json({
+    res.status(200).json({
       success: true,
       data: service
     });
