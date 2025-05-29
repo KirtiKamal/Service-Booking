@@ -16,7 +16,7 @@ router.post('/', async (req, res) => {
     res.status(400).json({
       success: false,
       message: 'Error creating service',
-      error: error.message
+      error: error.message 
     });
   }
 });
