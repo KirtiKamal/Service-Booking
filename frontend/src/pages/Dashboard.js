@@ -1,9 +1,31 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { serviceAPI } from '../services/api';
+import { useAuth } from '../contexts/AuthContext';
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const { currentUser, userData, authError } = useAuth();
+  const [userEmail, setUserEmail] = useState('');
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    if (currentUser && currentUser.email) {
+      setUserEmail(currentUser.email);
+      console.log('User authenticated:', currentUser);
+      
+      // if (authError) {
+      //   console.error('Auth error in Dashboard:', authError);
+      //   setError('Failed to load complete profile data. Some features may be limited.');
+      // }
+      
+      if (userData) {
+        console.log('User data loaded:', userData);
+      } else {
+        console.log('No user data from Firestore');
+      }
+    }
+  }, [currentUser, userData, authError]);
 
   const handleBrowseServices = async () => {
     try {
@@ -13,13 +35,21 @@ const Dashboard = () => {
       console.error('Error browsing services:', error);
     }
   };
-
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg shadow-xl p-8 mb-8">
         <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
           Service Booking Platform
-        </h1>
+        </h1>        {userEmail && (
+          <p className="text-white text-lg mb-3">
+            Welcome, <span className="font-medium">{userEmail}</span>!
+          </p>
+        )}
+        {error && (
+          <div className="bg-yellow-100 border border-yellow-400 text-yellow-800 px-4 py-2 rounded-md mb-4">
+            <span>{error}</span>
+          </div>
+        )}
         <p className="text-indigo-100 text-lg mb-6">
           Manage and book services easily with our intuitive platform.
         </p>

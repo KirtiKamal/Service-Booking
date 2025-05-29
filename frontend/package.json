@@ -10,6 +10,7 @@
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.9.0",
+    "firebase": "^11.8.1",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-normalize": "^13.0.1",
     "postcss-preset-env": "^10.1.6",
@@ -23,7 +24,11 @@
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "firebase:init": "node init-firebase.js",
+    "firebase:diagnostics": "node firebase-diagnostics.js",
+    "firebase:deploy": "firebase deploy --only firestore:rules,storage",
+    "firebase:rules": "firebase deploy --only firestore:rules"
   },
   "eslintConfig": {
     "extends": [
